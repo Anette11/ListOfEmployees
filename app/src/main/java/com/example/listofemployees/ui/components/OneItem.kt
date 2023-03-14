@@ -30,7 +30,12 @@ fun OneItem(
     userTag: String,
     position: String
 ) = Row(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(
+            horizontal = dimensionResource(id = R.dimen._16dp),
+            vertical = dimensionResource(id = R.dimen._6dp)
+        ),
     verticalAlignment = Alignment.CenterVertically
 ) {
     GlideImage(
