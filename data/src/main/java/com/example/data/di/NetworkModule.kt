@@ -2,10 +2,13 @@ package com.example.data.di
 
 import com.example.data.ApiService
 import com.example.data.BuildConfig
+import com.example.data.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -58,4 +61,14 @@ object NetworkModule {
     fun provideApiService(
         retrofit: Retrofit
     ): ApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideDispatchersProvider(
+    ): DispatchersProvider = object : DispatchersProvider {
+        override val main: CoroutineDispatcher
+            get() = Dispatchers.Main
+        override val io: CoroutineDispatcher
+            get() = Dispatchers.IO
+    }
 }

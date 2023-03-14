@@ -1,6 +1,6 @@
 package com.example.data
 
-import com.example.domain.data.remote.Item
+import com.example.data.data.remote.GetEmployeesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -11,5 +11,5 @@ interface ApiService {
     }
 
     @GET("users")
-    suspend fun getUsers(): Response<List<Item>>
+    suspend fun getUsers(): Response<GetEmployeesResponse>
 }

@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import com.example.data.ApiService
 import com.example.data.BuildConfig
+import com.example.data.data.mappers.toItem
 import com.example.domain.data.remote.Item
 import com.example.domain.repository.UsersRepository
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class UsersRepositoryImpl @Inject constructor(
         try {
             val response = apiService.getUsers()
             when (response.isSuccessful && response.body() != null) {
-                true -> response.body() ?: emptyList()
+                true -> response.body()?.items?.map { itemDto -> itemDto.toItem() } ?: emptyList()
                 false -> emptyList()
             }
         } catch (e: Exception) {

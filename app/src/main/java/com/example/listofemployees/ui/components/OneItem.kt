@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -43,7 +44,8 @@ fun OneItem(
             .size(dimensionResource(id = R.dimen._72dp))
             .clip(CircleShape),
         model = image,
-        contentDescription = stringResource(id = R.string.empty)
+        contentDescription = stringResource(id = R.string.empty),
+        contentScale = ContentScale.Crop
     )
     Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._16dp)))
     Column(
@@ -69,7 +71,7 @@ fun OneItem(
                         fontFamily = FontFamily(Font(R.font.inter_medium))
                     )
                 ) {
-                    append(userTag)
+                    append(userTag.lowercase())
                 }
             }
         )
