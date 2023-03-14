@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -19,11 +18,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import coil.compose.AsyncImage
 import com.example.listofemployees.R
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun OneItem(
     image: Any?,
@@ -39,13 +36,13 @@ fun OneItem(
         ),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    GlideImage(
+    AsyncImage(
         modifier = Modifier
             .size(dimensionResource(id = R.dimen._72dp))
             .clip(CircleShape),
         model = image,
         contentDescription = stringResource(id = R.string.empty),
-        contentScale = ContentScale.Crop
+        error = painterResource(id = R.drawable.ic_placeholder)
     )
     Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._16dp)))
     Column(
