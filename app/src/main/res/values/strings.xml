@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">ListOfEmployees</string>
     <string name="search_field_placeholder">Введи имя, тег, почту…</string>
-    <string name="search_description" />
-    <string name="menu_description" />
+    <string name="search_description">Search</string>
+    <string name="menu_description">Menu</string>
+    <string name="all">Все</string>
+    <string name="designers">Designers</string>
+    <string name="analysts">Analysts</string>
+    <string name="managers">Managers</string>
+    <string name="ios">iOS</string>
     <string name="empty" />
 </resources>

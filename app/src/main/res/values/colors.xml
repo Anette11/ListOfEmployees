@@ -10,5 +10,7 @@
 
     <color name="gray_light">#F7F7F8</color>
     <color name="gray_dark">#C3C3C6</color>
+    <color name="gray_darker">#97979B</color>
     <color name="black_dark">#050510</color>
+    <color name="purple">#6534FF</color>
 </resources>
