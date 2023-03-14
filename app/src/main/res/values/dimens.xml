@@ -6,6 +6,10 @@
     <dimen name="_18dp">18dp</dimen>
     <dimen name="_22dp">22dp</dimen>
     <dimen name="_24dp">24dp</dimen>
+    <dimen name="_72dp">72dp</dimen>
 
+    <dimen name="_13sp">13sp</dimen>
+    <dimen name="_14sp">14sp</dimen>
     <dimen name="_15sp">15sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
 </resources>
