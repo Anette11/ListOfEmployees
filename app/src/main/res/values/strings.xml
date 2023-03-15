@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ListOfEmployees</string>
+    <string name="app_name">Кодер</string>
     <string name="search_field_placeholder">Введи имя, тег, почту…</string>
     <string name="search_description">Search</string>
     <string name="menu_description">Menu</string>
