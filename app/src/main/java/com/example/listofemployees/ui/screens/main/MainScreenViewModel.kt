@@ -13,6 +13,7 @@ import com.example.domain.util.Loading
 import com.example.domain.util.Success
 import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
+import com.example.listofemployees.util.TabType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -52,13 +53,11 @@ class MainScreenViewModel @Inject constructor(
 
     }
 
-    val tabNames = listOf(
-        resourcesProvider.getString(R.string.all),
-        resourcesProvider.getString(R.string.designers),
-        resourcesProvider.getString(R.string.analysts),
-        resourcesProvider.getString(R.string.managers),
-        resourcesProvider.getString(R.string.ios)
-    )
+    val tabNames = buildList {
+        TabType.values().forEach { tabType ->
+            add(tabType.tabName)
+        }
+    }
 
     fun onTabClick(tab: Int) {
 
