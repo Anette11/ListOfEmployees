@@ -16,4 +16,5 @@
     <string name="some_superintelligence_broke_everything">Какой-то сверхразум все сломал</string>
     <string name="we_will_try_to_fix_it_quickly">Постараемся быстро починить</string>
     <string name="try_again">Попробовать снова</string>
+    <string name="error_occurred">Возникла ошибка</string>
 </resources>

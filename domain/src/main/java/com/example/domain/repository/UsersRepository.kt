@@ -1,8 +1,11 @@
 package com.example.domain.repository
 
-import com.example.domain.data.remote.Item
+import com.example.domain.util.NetworkResult
+import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository {
 
-    suspend fun getUsers(): List<Item>
+    fun getUsers(
+        defaultErrorMessage: String
+    ): Flow<NetworkResult>
 }

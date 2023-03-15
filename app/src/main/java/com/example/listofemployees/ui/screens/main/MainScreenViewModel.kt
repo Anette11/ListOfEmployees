@@ -8,9 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.DispatchersProvider
 import com.example.domain.data.remote.Item
 import com.example.domain.use_cases.GetUsersUseCase
+import com.example.domain.util.Failure
+import com.example.domain.util.Loading
+import com.example.domain.util.Success
 import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +27,12 @@ class MainScreenViewModel @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
     private val resourcesProvider: ResourcesProvider
 ) : ViewModel() {
+
+    var isLoading by mutableStateOf(true)
+        private set
+
+    var error by mutableStateOf(false)
+        private set
 
     val tabIndex by mutableStateOf(0)
     val selectedTabIndex by mutableStateOf(0)
@@ -54,9 +67,26 @@ class MainScreenViewModel @Inject constructor(
     var users by mutableStateOf<List<Item>>(emptyList())
         private set
 
-    private fun getUsers() = viewModelScope.launch(dispatchersProvider.io) {
-        val users = getUsersUseCase.invoke()
-        this@MainScreenViewModel.users = users
+    private fun getUsers() = viewModelScope.launch(dispatchersProvider.main) {
+        getUsersUseCase.invoke(defaultErrorMessage = resourcesProvider.getString(R.string.error_occurred))
+            .flowOn(dispatchersProvider.io)
+            .onEach { networkResult ->
+                if (networkResult is Loading) {
+                    error = false
+                    isLoading = true
+                }
+                if (networkResult is Failure) {
+                    isLoading = false
+                    error = true
+                }
+                if (networkResult is Success) {
+                    error = false
+                    isLoading = false
+                    users = networkResult.users
+                }
+            }
+            .catch { error = true }
+            .collect()
     }
 
     init {

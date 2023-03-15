@@ -1,12 +1,14 @@
 package com.example.domain.use_cases
 
-import com.example.domain.data.remote.Item
 import com.example.domain.repository.UsersRepository
+import com.example.domain.util.NetworkResult
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetUsersUseCase @Inject constructor(
     private val usersRepository: UsersRepository
 ) {
-    suspend operator fun invoke(): List<Item> =
-        usersRepository.getUsers()
+    operator fun invoke(
+        defaultErrorMessage: String
+    ): Flow<NetworkResult> = usersRepository.getUsers(defaultErrorMessage = defaultErrorMessage)
 }

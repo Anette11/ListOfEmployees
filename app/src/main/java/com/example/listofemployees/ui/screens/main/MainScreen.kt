@@ -8,13 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.listofemployees.R
-import com.example.listofemployees.ui.components.ListScreen
-import com.example.listofemployees.ui.components.SearchField
-import com.example.listofemployees.ui.components.Tabs
+import com.example.listofemployees.ui.components.*
 
 @Composable
 fun MainScreen() {
     val viewModel: MainScreenViewModel = hiltViewModel()
+    if (viewModel.error) {
+        ErrorScreen(
+            onTryAgainClick = {}
+        )
+        return
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,7 +35,13 @@ fun MainScreen() {
             selectedTabIndex = viewModel.selectedTabIndex,
             tabNames = viewModel.tabNames,
             onTabClick = viewModel::onTabClick,
-            content = { ListScreen(users = viewModel.users) }
+            content = {
+                if (viewModel.isLoading) {
+                    ListShimmer()
+                    return@Tabs
+                }
+                ListScreen(users = viewModel.users)
+            }
         )
     }
 }
