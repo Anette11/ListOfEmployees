@@ -15,10 +15,7 @@ import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
 import com.example.listofemployees.util.TabType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,28 +26,25 @@ class MainScreenViewModel @Inject constructor(
     private val resourcesProvider: ResourcesProvider
 ) : ViewModel() {
 
+    private val _selectedTabIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    val selectedTabIndex: StateFlow<Int> = _selectedTabIndex.asStateFlow()
+
     var isLoading by mutableStateOf(true)
         private set
 
     var error by mutableStateOf(false)
         private set
 
-    val tabIndex by mutableStateOf(0)
-    val selectedTabIndex by mutableStateOf(0)
-
     var value by mutableStateOf(resourcesProvider.getString(R.string.empty))
+        private set
+
+    private var users by mutableStateOf<List<Item>>(emptyList())
+
+    var usersFiltered by mutableStateOf<List<Item>>(emptyList())
         private set
 
     fun onValueChange(newValue: String) {
         value = newValue
-    }
-
-    fun onSearchClick() {
-
-    }
-
-    fun onMenuClick() {
-
     }
 
     val tabNames = buildList {
@@ -60,11 +54,16 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun onTabClick(tab: Int) {
+        _selectedTabIndex.value = tab
+    }
+
+    fun onSearchClick() {
 
     }
 
-    var users by mutableStateOf<List<Item>>(emptyList())
-        private set
+    fun onMenuClick() {
+
+    }
 
     private fun getUsers() = viewModelScope.launch(dispatchersProvider.main) {
         getUsersUseCase.invoke(defaultErrorMessage = resourcesProvider.getString(R.string.error_occurred))
@@ -82,6 +81,7 @@ class MainScreenViewModel @Inject constructor(
                     error = false
                     isLoading = false
                     users = networkResult.users
+                    if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
                 }
             }
             .catch { error = true }
@@ -90,7 +90,20 @@ class MainScreenViewModel @Inject constructor(
 
     fun onTryAgainClick() = getUsers()
 
+    private fun applyFilter() = viewModelScope.launch {
+        selectedTabIndex.collect { index ->
+            val newUsersFiltered = users.filter { user ->
+                when (index) {
+                    0 -> true
+                    else -> user.department == TabType.values()[index].department
+                }
+            }
+            usersFiltered = newUsersFiltered
+        }
+    }
+
     init {
         getUsers()
+        applyFilter()
     }
 }

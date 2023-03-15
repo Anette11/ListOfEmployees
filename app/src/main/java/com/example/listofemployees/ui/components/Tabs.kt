@@ -20,7 +20,6 @@ import com.example.listofemployees.R
 
 @Composable
 fun Tabs(
-    tabIndex: Int,
     selectedTabIndex: Int,
     tabNames: List<String>,
     onTabClick: (Int) -> Unit,
@@ -36,9 +35,9 @@ fun Tabs(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .tabIndicatorOffset(tabPositions[tabIndex])
+                    .tabIndicatorOffset(tabPositions[selectedTabIndex])
                     .height(dimensionResource(id = R.dimen._2dp))
-                    .background(colorResource(id = R.color.purple)),
+                    .background(colorResource(id = R.color.purple))
             )
         },
         divider = {
@@ -52,7 +51,7 @@ fun Tabs(
     ) {
         tabNames.forEachIndexed { index, tabName ->
             Tab(
-                selected = index == tabIndex,
+                selected = index == selectedTabIndex,
                 onClick = { onTabClick(index) },
                 text = {
                     if (index == selectedTabIndex) {
@@ -82,7 +81,6 @@ fun Tabs(
 @Preview
 fun TabsPreview() =
     Tabs(
-        tabIndex = 0,
         selectedTabIndex = 0,
         tabNames = listOf(
             stringResource(id = R.string.all),
