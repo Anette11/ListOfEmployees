@@ -40,6 +40,14 @@ fun Tabs(
                     .height(dimensionResource(id = R.dimen._2dp))
                     .background(colorResource(id = R.color.purple)),
             )
+        },
+        divider = {
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(height = dimensionResource(id = R.dimen._0_33dp)),
+                color = colorResource(id = R.color.gray_dark)
+            )
         }
     ) {
         tabNames.forEachIndexed { index, tabName ->
@@ -66,12 +74,6 @@ fun Tabs(
             )
         }
     }
-    Divider(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(height = dimensionResource(id = R.dimen._0_33dp)),
-        color = colorResource(id = R.color.gray_dark)
-    )
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen._16dp)))
     content()
 }
