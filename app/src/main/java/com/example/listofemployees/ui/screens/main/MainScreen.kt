@@ -15,7 +15,7 @@ fun MainScreen() {
     val viewModel: MainScreenViewModel = hiltViewModel()
     if (viewModel.error) {
         ErrorScreen(
-            onTryAgainClick = {}
+            onTryAgainClick = viewModel::onTryAgainClick
         )
         return
     }

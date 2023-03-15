@@ -89,6 +89,8 @@ class MainScreenViewModel @Inject constructor(
             .collect()
     }
 
+    fun onTryAgainClick() = getUsers()
+
     init {
         getUsers()
     }
