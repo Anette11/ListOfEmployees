@@ -59,18 +59,18 @@ fun Tabs(
                         Text(
                             text = tabName,
                             fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
-                            fontFamily = FontFamily(Font(R.font.inter_semi_bold)),
-                            color = colorResource(id = R.color.black_dark)
+                            fontFamily = FontFamily(Font(R.font.inter_semi_bold))
                         )
                     } else {
                         Text(
                             text = tabName,
                             fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
-                            fontFamily = FontFamily(Font(R.font.inter_medium)),
-                            color = colorResource(id = R.color.gray_darker)
+                            fontFamily = FontFamily(Font(R.font.inter_medium))
                         )
                     }
-                }
+                },
+                selectedContentColor = colorResource(id = R.color.black_dark),
+                unselectedContentColor = colorResource(id = R.color.gray_darker)
             )
         }
     }
