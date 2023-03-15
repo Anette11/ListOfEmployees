@@ -8,10 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -71,13 +69,16 @@ fun SearchField(
             }
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = colorResource(id = R.color.gray_light)
+            backgroundColor = colorResource(id = R.color.gray_light),
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
         ),
         textStyle = TextStyle(
             color = colorResource(id = R.color.black_dark),
             fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
             fontFamily = FontFamily(Font(R.font.inter_medium))
-        )
+        ),
+        maxLines = integerResource(id = R.integer._1)
     )
 }
 
@@ -85,7 +86,7 @@ fun SearchField(
 @Preview
 fun SearchFieldPreview() =
     SearchField(
-        value = "",
+        value = stringResource(id = R.string.empty),
         onValueChange = {},
         onSearchClick = {},
         onMenuClick = {}
