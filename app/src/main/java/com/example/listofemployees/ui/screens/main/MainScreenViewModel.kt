@@ -8,11 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.DispatchersProvider
 import com.example.domain.data.remote.Item
 import com.example.domain.use_cases.GetUsersUseCase
-import com.example.domain.util.Failure
-import com.example.domain.util.Loading
-import com.example.domain.util.Success
+import com.example.domain.util.NetworkResult
 import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
+import com.example.listofemployees.util.SnackBarInfo
 import com.example.listofemployees.util.TabType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -39,6 +38,9 @@ class MainScreenViewModel @Inject constructor(
         private set
 
     var value by mutableStateOf(resourcesProvider.getString(R.string.empty))
+        private set
+
+    var snackBarInfo by mutableStateOf<SnackBarInfo?>(null)
         private set
 
     private var users by mutableStateOf<List<Item>>(emptyList())
@@ -72,21 +74,23 @@ class MainScreenViewModel @Inject constructor(
         getUsersUseCase.invoke(defaultErrorMessage = resourcesProvider.getString(R.string.error_occurred))
             .flowOn(dispatchersProvider.io)
             .onEach { networkResult ->
-                if (networkResult is Loading) {
-                    error = false
-                    isLoading = true
-                }
-                if (networkResult is Failure) {
-                    isLoading = false
-                    if (!isRefreshing) error = true
-                    isRefreshing = false
-                }
-                if (networkResult is Success) {
-                    error = false
-                    isLoading = false
-                    users = networkResult.users
-                    if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
-                    isRefreshing = false
+                when (networkResult) {
+                    is NetworkResult.Failure -> {
+                        isLoading = false
+                        if (!isRefreshing) error = true
+                        isRefreshing = false
+                    }
+                    NetworkResult.Loading -> {
+                        error = false
+                        isLoading = true
+                    }
+                    is NetworkResult.Success -> {
+                        error = false
+                        isLoading = false
+                        users = networkResult.users
+                        if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
+                        isRefreshing = false
+                    }
                 }
             }
             .catch { error = true }
@@ -97,6 +101,10 @@ class MainScreenViewModel @Inject constructor(
 
     fun onRefresh() {
         isRefreshing = true
+        snackBarInfo = SnackBarInfo(
+            color = R.color.purple,
+            text = resourcesProvider.getString(R.string.refreshing_info)
+        )
         getUsers()
     }
 

@@ -67,5 +67,12 @@ fun MainScreen() {
             modifier = Modifier.align(Alignment.TopCenter),
             contentColor = colorResource(id = R.color.purple)
         )
+        viewModel.snackBarInfo?.let { snackBarInfo ->
+            SnackBarInfo(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                color = snackBarInfo.color,
+                text = snackBarInfo.text
+            )
+        }
     }
 }
