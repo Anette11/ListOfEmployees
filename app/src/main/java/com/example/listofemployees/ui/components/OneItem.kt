@@ -30,7 +30,9 @@ fun OneItem(
     image: Any?,
     name: String,
     userTag: String,
-    position: String
+    position: String,
+    birthday: String,
+    showBirthday: Boolean
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
@@ -91,6 +93,17 @@ fun OneItem(
             fontFamily = FontFamily(Font(R.font.inter_regular))
         )
     }
+    if (showBirthday) {
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._16dp)))
+        Column(verticalArrangement = Arrangement.Center) {
+            Text(
+                text = birthday,
+                color = colorResource(id = R.color.gray_darkest),
+                fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
+                fontFamily = FontFamily(Font(R.font.inter_regular))
+            )
+        }
+    }
 }
 
 @Composable
@@ -100,5 +113,7 @@ fun OneItemPreview() =
         image = painterResource(id = R.drawable.ic_placeholder),
         name = stringResource(id = R.string.name),
         userTag = stringResource(id = R.string.userTag),
-        position = stringResource(id = R.string.position)
+        position = stringResource(id = R.string.position),
+        birthday = stringResource(id = R.string.birthday_example),
+        showBirthday = true
     )

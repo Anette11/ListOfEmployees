@@ -95,7 +95,10 @@ fun MainScreen() {
                                 ListShimmer()
                                 return@Tabs
                             }
-                            ListScreen(users = viewModel.usersFiltered.value)
+                            ListScreen(
+                                users = viewModel.usersFiltered.value,
+                                showBirthday = viewModel.sortType == SortType.BY_BIRTHDAY
+                            )
                         }
                     )
                 }

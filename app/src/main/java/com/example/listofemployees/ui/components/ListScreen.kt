@@ -9,7 +9,8 @@ import com.example.domain.data.remote.Item
 
 @Composable
 fun ListScreen(
-    users: List<Item>
+    users: List<Item>,
+    showBirthday: Boolean
 ) = LazyColumn(
     modifier = Modifier.fillMaxSize()
 ) {
@@ -19,7 +20,9 @@ fun ListScreen(
             image = user.avatarUrl,
             name = "${user.firstName} ${user.lastName}",
             userTag = user.userTag,
-            position = user.position
+            position = user.position,
+            birthday = user.birthday,
+            showBirthday = showBirthday
         )
     }
 }
@@ -27,4 +30,7 @@ fun ListScreen(
 @Composable
 @Preview
 fun ListScreenPreview() =
-    ListScreen(users = emptyList())
+    ListScreen(
+        users = emptyList(),
+        showBirthday = true
+    )
