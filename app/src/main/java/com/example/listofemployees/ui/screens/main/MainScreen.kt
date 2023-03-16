@@ -53,7 +53,7 @@ fun MainScreen() {
                 tabNames = viewModel.tabNames,
                 onTabClick = viewModel::onTabClick,
                 content = {
-                    if (viewModel.isLoading) {
+                    if (viewModel.isLoading && !viewModel.isRefreshing) {
                         ListShimmer()
                         return@Tabs
                     }
