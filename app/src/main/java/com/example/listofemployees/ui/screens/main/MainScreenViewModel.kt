@@ -142,7 +142,6 @@ class MainScreenViewModel @Inject constructor(
     fun onTryAgainClick() = getUsers()
 
     fun onRefresh() {
-        snackBarInfo = null
         isRefreshing = true
         snackBarInfo = SnackBarInfo(
             color = R.color.purple,
