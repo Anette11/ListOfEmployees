@@ -8,7 +8,5 @@ import javax.inject.Inject
 class GetUsersUseCase @Inject constructor(
     private val usersRepository: UsersRepository
 ) {
-    operator fun invoke(
-        defaultErrorMessage: String
-    ): Flow<NetworkResult> = usersRepository.getUsers(defaultErrorMessage = defaultErrorMessage)
+    operator fun invoke(): Flow<NetworkResult> = usersRepository.getUsers()
 }

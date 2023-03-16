@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.DispatchersProvider
 import com.example.domain.data.remote.Item
 import com.example.domain.use_cases.GetUsersUseCase
+import com.example.domain.util.NetworkFailureType
 import com.example.domain.util.NetworkResult
 import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
@@ -71,7 +72,7 @@ class MainScreenViewModel @Inject constructor(
     }
 
     private fun getUsers() = viewModelScope.launch(dispatchersProvider.main) {
-        getUsersUseCase.invoke(defaultErrorMessage = resourcesProvider.getString(R.string.error_occurred))
+        getUsersUseCase.invoke()
             .flowOn(dispatchersProvider.io)
             .onEach { networkResult ->
                 when (networkResult) {
@@ -79,6 +80,16 @@ class MainScreenViewModel @Inject constructor(
                         isLoading = false
                         if (!isRefreshing) error = true
                         isRefreshing = false
+                        snackBarInfo = when (networkResult.networkFailureType) {
+                            NetworkFailureType.GenericError -> SnackBarInfo(
+                                color = R.color.red,
+                                text = resourcesProvider.getString(R.string.some_superintelligence_broke_everything)
+                            )
+                            NetworkFailureType.NetworkConnectionError -> SnackBarInfo(
+                                color = R.color.red,
+                                text = resourcesProvider.getString(R.string.error_internet_connection)
+                            )
+                        }
                     }
                     NetworkResult.Loading -> {
                         error = false
@@ -90,6 +101,7 @@ class MainScreenViewModel @Inject constructor(
                         users = networkResult.users
                         if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
                         isRefreshing = false
+                        snackBarInfo = null
                     }
                 }
             }
@@ -100,6 +112,7 @@ class MainScreenViewModel @Inject constructor(
     fun onTryAgainClick() = getUsers()
 
     fun onRefresh() {
+        snackBarInfo = null
         isRefreshing = true
         snackBarInfo = SnackBarInfo(
             color = R.color.purple,

@@ -9,7 +9,7 @@ sealed class NetworkResult {
     ) : NetworkResult()
 
     data class Failure(
-        val message: String
+        val networkFailureType: NetworkFailureType
     ) : NetworkResult()
 
     object Loading
