@@ -24,4 +24,5 @@
     <string name="sort_alphabetically">По алфавиту</string>
     <string name="sort_by_birthday">По дню рождения</string>
     <string name="birthday_example">21 июн</string>
+    <string name="year_example">2024</string>
 </resources>
