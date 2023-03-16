@@ -11,10 +11,7 @@ import com.example.domain.use_cases.GetUsersUseCase
 import com.example.domain.util.NetworkFailureType
 import com.example.domain.util.NetworkResult
 import com.example.listofemployees.R
-import com.example.listofemployees.util.ResourcesProvider
-import com.example.listofemployees.util.SnackBarInfo
-import com.example.listofemployees.util.SortType
-import com.example.listofemployees.util.TabType
+import com.example.listofemployees.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -66,11 +63,11 @@ class MainScreenViewModel @Inject constructor(
                     this.value = newUsersFiltered
                 }
                 .apply {
-                    (this.value as MutableList<Item>).sortBy { item ->
-                        when (sortType) {
-                            SortType.ALPHABETICALLY -> item.firstName
-                            SortType.BY_BIRTHDAY -> item.birthday
-                        }
+                    when (sortType) {
+                        SortType.ALPHABETICALLY -> (this.value as MutableList<Item>)
+                            .sortBy { user -> user.firstName }
+                        SortType.BY_BIRTHDAY -> (this.value as MutableList<Item>)
+                            .sortedWith(nullsLast(compareBy { user -> user.birthday.toDate() }))
                     }
                 }
         }
