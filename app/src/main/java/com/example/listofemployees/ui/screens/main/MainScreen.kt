@@ -97,7 +97,7 @@ fun MainScreen() {
                                 ListShimmer()
                                 return@Tabs
                             }
-                            ListScreen(users = viewModel.usersFiltered)
+                            ListScreen(users = viewModel.usersFiltered.value)
                         }
                     )
                 }

@@ -50,7 +50,17 @@ class MainScreenViewModel @Inject constructor(
 
     private var users by mutableStateOf<List<Item>>(emptyList())
 
-    var usersFiltered by mutableStateOf<List<Item>>(emptyList())
+    var usersFiltered = mutableStateOf<List<Item>>(mutableListOf())
+        get() {
+            return field.apply {
+                (this.value as MutableList<Item>).sortBy { item ->
+                    when (sortType) {
+                        SortType.ALPHABETICALLY -> item.firstName
+                        SortType.BY_BIRTHDAY -> item.birthday
+                    }
+                }
+            }
+        }
         private set
 
     fun onValueChange(newValue: String) {
@@ -103,7 +113,7 @@ class MainScreenViewModel @Inject constructor(
                         error = false
                         isLoading = false
                         users = networkResult.users
-                        if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
+                        if (usersFiltered.value.isEmpty()) usersFiltered.value = networkResult.users
                         isRefreshing = false
                         snackBarInfo = null
                     }
@@ -133,7 +143,7 @@ class MainScreenViewModel @Inject constructor(
                     else -> user.department == TabType.values()[index].department
                 }
             }
-            usersFiltered = newUsersFiltered
+            usersFiltered.value = newUsersFiltered
         }
     }
 
