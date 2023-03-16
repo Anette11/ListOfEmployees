@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.listofemployees.R
+import com.example.listofemployees.util.toStringDate
 
 @Composable
 fun OneItem(
@@ -97,7 +98,7 @@ fun OneItem(
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._16dp)))
         Column(verticalArrangement = Arrangement.Center) {
             Text(
-                text = birthday,
+                text = birthday.toStringDate(),
                 color = colorResource(id = R.color.gray_darkest),
                 fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
                 fontFamily = FontFamily(Font(R.font.inter_regular))

@@ -13,3 +13,15 @@ fun String.toDate(): Date? =
         if (BuildConfig.DEBUG) e.printStackTrace()
         null
     }
+
+fun String.toStringDate(): String {
+    val defaultValue = ""
+    return try {
+        val date = this.toDate() ?: return defaultValue
+        val simpleDateFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
+        simpleDateFormat.format(date)
+    } catch (e: ParseException) {
+        if (BuildConfig.DEBUG) e.printStackTrace()
+        defaultValue
+    }
+}
