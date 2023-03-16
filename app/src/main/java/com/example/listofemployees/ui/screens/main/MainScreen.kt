@@ -10,7 +10,6 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +28,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen() {
     val viewModel: MainScreenViewModel = hiltViewModel()
-    val selectedTabIndex = viewModel.selectedTabIndex.collectAsState()
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullRefreshState(
@@ -89,7 +87,7 @@ fun MainScreen() {
                         isMenuSelected = viewModel.sortType != SortType.ALPHABETICALLY
                     )
                     Tabs(
-                        selectedTabIndex = selectedTabIndex.value,
+                        selectedTabIndex = viewModel.selectedTabIndex,
                         tabNames = viewModel.tabNames,
                         onTabClick = viewModel::onTabClick,
                         content = {

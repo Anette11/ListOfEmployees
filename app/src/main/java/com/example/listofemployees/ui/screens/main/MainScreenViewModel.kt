@@ -16,7 +16,10 @@ import com.example.listofemployees.util.SnackBarInfo
 import com.example.listofemployees.util.SortType
 import com.example.listofemployees.util.TabType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,8 +30,8 @@ class MainScreenViewModel @Inject constructor(
     private val resourcesProvider: ResourcesProvider
 ) : ViewModel() {
 
-    private val _selectedTabIndex: MutableStateFlow<Int> = MutableStateFlow(0)
-    val selectedTabIndex: StateFlow<Int> = _selectedTabIndex.asStateFlow()
+    var selectedTabIndex by mutableStateOf(0)
+        private set
 
     var isLoading by mutableStateOf(true)
         private set
@@ -52,14 +55,24 @@ class MainScreenViewModel @Inject constructor(
 
     var usersFiltered = mutableStateOf<List<Item>>(mutableListOf())
         get() {
-            return field.apply {
-                (this.value as MutableList<Item>).sortBy { item ->
-                    when (sortType) {
-                        SortType.ALPHABETICALLY -> item.firstName
-                        SortType.BY_BIRTHDAY -> item.birthday
+            return field
+                .apply {
+                    val newUsersFiltered = users.filter { user ->
+                        when (selectedTabIndex) {
+                            0 -> true
+                            else -> user.department == TabType.values()[selectedTabIndex].department
+                        }
+                    }
+                    this.value = newUsersFiltered
+                }
+                .apply {
+                    (this.value as MutableList<Item>).sortBy { item ->
+                        when (sortType) {
+                            SortType.ALPHABETICALLY -> item.firstName
+                            SortType.BY_BIRTHDAY -> item.birthday
+                        }
                     }
                 }
-            }
         }
         private set
 
@@ -78,7 +91,7 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun onTabClick(tab: Int) {
-        _selectedTabIndex.value = tab
+        selectedTabIndex = tab
     }
 
     fun onSearchClick() {
@@ -135,20 +148,7 @@ class MainScreenViewModel @Inject constructor(
         getUsers()
     }
 
-    private fun applyFilter() = viewModelScope.launch {
-        selectedTabIndex.collect { index ->
-            val newUsersFiltered = users.filter { user ->
-                when (index) {
-                    0 -> true
-                    else -> user.department == TabType.values()[index].department
-                }
-            }
-            usersFiltered.value = newUsersFiltered
-        }
-    }
-
     init {
         getUsers()
-        applyFilter()
     }
 }
