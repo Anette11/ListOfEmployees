@@ -5,6 +5,7 @@ import java.util.*
 
 fun List<Item>.toListScreenItems(): List<ScreenItem> {
     val listTransformed = mutableListOf<ScreenItem>()
+    val listBirthdaysNextYear = mutableListOf<ScreenItem>()
     val calendarToday = Calendar.getInstance()
     this
         .filter { item -> item.birthday.toDate() != null }
@@ -12,16 +13,20 @@ fun List<Item>.toListScreenItems(): List<ScreenItem> {
             val screenItemYear = ScreenItem.Year(
                 year = calendarToday.get(Calendar.YEAR).plus(1).toString()
             )
-            if (!listTransformed.contains(screenItemYear)) {
-                val dateBirthday = item.birthday.toDate()!!
-                val calendarBirthday = Calendar.getInstance()
-                calendarBirthday.time = dateBirthday
-                calendarBirthday.set(Calendar.YEAR, calendarToday.get(Calendar.YEAR))
-                if (calendarBirthday.before(calendarToday)) listTransformed.add(screenItemYear)
+            val calendarBirthday = Calendar.getInstance()
+            val dateBirthday = item.birthday.toDate()!!
+            calendarBirthday.time = dateBirthday
+            calendarBirthday.set(Calendar.YEAR, calendarToday.get(Calendar.YEAR))
+            if (!listBirthdaysNextYear.contains(screenItemYear)) {
+                if (calendarBirthday.before(calendarToday)) listBirthdaysNextYear.add(screenItemYear)
             }
-            listTransformed.add(ScreenItem.User(user = item))
+            val screenItemUser = ScreenItem.User(user = item)
+            when (calendarBirthday.before(calendarToday)) {
+                true -> listBirthdaysNextYear.add(screenItemUser)
+                false -> listTransformed.add(screenItemUser)
+            }
         }
-    return listTransformed
+    return listTransformed.plus(listBirthdaysNextYear)
 }
 
 fun List<Item>.toSimpleListScreenItems(): List<ScreenItem> =

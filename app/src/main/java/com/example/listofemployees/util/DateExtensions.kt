@@ -25,3 +25,13 @@ fun String.toStringDate(): String {
         defaultValue
     }
 }
+
+fun String.toCurrentYear(): Date? {
+    val dateBirthday = this.toDate()
+    val calendarToday = Calendar.getInstance()
+    val calendarBirthday = Calendar.getInstance()
+    if (dateBirthday == null) return null
+    calendarBirthday.time = dateBirthday
+    calendarBirthday.set(Calendar.YEAR, calendarToday.get(Calendar.YEAR))
+    return calendarBirthday.time
+}
