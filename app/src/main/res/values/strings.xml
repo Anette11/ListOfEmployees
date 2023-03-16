@@ -25,4 +25,7 @@
     <string name="sort_by_birthday">По дню рождения</string>
     <string name="birthday_example">21 июн</string>
     <string name="year_example">2024</string>
+    <string name="birthday_test">5 июня 1996</string>
+    <string name="age_test">24 года</string>
+    <string name="phone_test">+7 (999) 900 90 90</string>
 </resources>
