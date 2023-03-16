@@ -16,4 +16,5 @@
     <color name="purple">#6534FF</color>
     <color name="gray_gradient_start">#F3F3F6</color>
     <color name="gray_gradient_end">#FAFAFA</color>
+    <color name="red">#F44336</color>
 </resources>

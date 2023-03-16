@@ -17,4 +17,7 @@
     <string name="we_will_try_to_fix_it_quickly">Постараемся быстро починить</string>
     <string name="try_again">Попробовать снова</string>
     <string name="error_occurred">Возникла ошибка</string>
+    <string name="loading_info">Секундочку, гружусь…</string>
+    <string name="error_internet_connection">Не могу обновить данные.\nПроверь соединение с интернетом.</string>
+    <string name="error_something_went_wrong">Не могу обновить данные.\nЧто-то пошло не так.</string>
 </resources>
