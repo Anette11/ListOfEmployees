@@ -22,7 +22,8 @@ fun SearchField(
     value: String,
     onValueChange: (String) -> Unit,
     onSearchClick: () -> Unit,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    isMenuSelected: Boolean
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
@@ -64,7 +65,10 @@ fun SearchField(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_menu),
                     contentDescription = stringResource(id = R.string.menu_description),
-                    tint = colorResource(id = R.color.gray_dark)
+                    tint = colorResource(
+                        id = if (isMenuSelected) R.color.purple
+                        else R.color.gray_dark
+                    )
                 )
             }
         },
@@ -89,5 +93,6 @@ fun SearchFieldPreview() =
         value = stringResource(id = R.string.empty),
         onValueChange = {},
         onSearchClick = {},
-        onMenuClick = {}
+        onMenuClick = {},
+        isMenuSelected = true
     )
