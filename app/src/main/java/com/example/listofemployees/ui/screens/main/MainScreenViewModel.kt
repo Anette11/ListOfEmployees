@@ -66,8 +66,11 @@ class MainScreenViewModel @Inject constructor(
                     when (sortType) {
                         SortType.ALPHABETICALLY -> (this.value as MutableList<Item>)
                             .sortBy { user -> user.firstName }
-                        SortType.BY_BIRTHDAY -> (this.value as MutableList<Item>)
-                            .sortedWith(nullsLast(compareBy { user -> user.birthday.toDate() }))
+                        SortType.BY_BIRTHDAY -> {
+                            val sortedUsers = (this.value as MutableList<Item>)
+                                .sortedWith(nullsLast(compareBy { user -> user.birthday.toDate() }))
+                            this.value = sortedUsers
+                        }
                     }
                 }
         }
