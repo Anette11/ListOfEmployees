@@ -104,16 +104,9 @@ class MainScreenViewModel @Inject constructor(
                         isLoading = false
                         if (!isRefreshing) error = true
                         isRefreshing = false
-                        snackBarInfo = when (networkResult.networkFailureType) {
-                            NetworkFailureType.GenericError -> SnackBarInfo(
-                                color = R.color.red,
-                                text = resourcesProvider.getString(R.string.some_superintelligence_broke_everything)
-                            )
-                            NetworkFailureType.NetworkConnectionError -> SnackBarInfo(
-                                color = R.color.red,
-                                text = resourcesProvider.getString(R.string.error_internet_connection)
-                            )
-                        }
+                        snackBarInfo = createFailureSnackBarInfo(
+                            networkFailureType = networkResult.networkFailureType
+                        )
                     }
                     NetworkResult.Loading -> {
                         error = false
@@ -131,6 +124,19 @@ class MainScreenViewModel @Inject constructor(
             }
             .catch { error = true }
             .collect()
+    }
+
+    private fun createFailureSnackBarInfo(
+        networkFailureType: NetworkFailureType
+    ): SnackBarInfo = when (networkFailureType) {
+        NetworkFailureType.GenericError -> SnackBarInfo(
+            color = R.color.red,
+            text = resourcesProvider.getString(R.string.some_superintelligence_broke_everything)
+        )
+        NetworkFailureType.NetworkConnectionError -> SnackBarInfo(
+            color = R.color.red,
+            text = resourcesProvider.getString(R.string.error_internet_connection)
+        )
     }
 
     fun onTryAgainClick() = getUsers()
