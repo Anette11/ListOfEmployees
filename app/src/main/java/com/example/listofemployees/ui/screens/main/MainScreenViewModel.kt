@@ -13,6 +13,7 @@ import com.example.domain.util.NetworkResult
 import com.example.listofemployees.R
 import com.example.listofemployees.util.ResourcesProvider
 import com.example.listofemployees.util.SnackBarInfo
+import com.example.listofemployees.util.SortType
 import com.example.listofemployees.util.TabType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -44,6 +45,9 @@ class MainScreenViewModel @Inject constructor(
     var snackBarInfo by mutableStateOf<SnackBarInfo?>(null)
         private set
 
+    var sortType by mutableStateOf(SortType.ALPHABETICALLY)
+        private set
+
     private var users by mutableStateOf<List<Item>>(emptyList())
 
     var usersFiltered by mutableStateOf<List<Item>>(emptyList())
@@ -51,6 +55,10 @@ class MainScreenViewModel @Inject constructor(
 
     fun onValueChange(newValue: String) {
         value = newValue
+    }
+
+    fun onSortTypeSelected(sortType: SortType) {
+        this.sortType = sortType
     }
 
     val tabNames = buildList {
@@ -64,10 +72,6 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun onSearchClick() {
-
-    }
-
-    fun onMenuClick() {
 
     }
 

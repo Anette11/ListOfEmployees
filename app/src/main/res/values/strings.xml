@@ -20,4 +20,7 @@
     <string name="refreshing_info">Секундочку, гружусь…</string>
     <string name="error_internet_connection">Не могу обновить данные.\nПроверь соединение с интернетом.</string>
     <string name="error_something_went_wrong">Не могу обновить данные.\nЧто-то пошло не так.</string>
+    <string name="sort">Сортировка</string>
+    <string name="sort_alphabetically">По алфавиту</string>
+    <string name="sort_by_birthday">По дню рождения</string>
 </resources>
