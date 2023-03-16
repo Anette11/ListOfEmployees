@@ -32,6 +32,9 @@ class MainScreenViewModel @Inject constructor(
     var isLoading by mutableStateOf(true)
         private set
 
+    var isRefreshing by mutableStateOf(false)
+        private set
+
     var error by mutableStateOf(false)
         private set
 
@@ -75,13 +78,15 @@ class MainScreenViewModel @Inject constructor(
                 }
                 if (networkResult is Failure) {
                     isLoading = false
-                    error = true
+                    if (!isRefreshing) error = true
+                    isRefreshing = false
                 }
                 if (networkResult is Success) {
                     error = false
                     isLoading = false
                     users = networkResult.users
                     if (usersFiltered.isEmpty()) usersFiltered = networkResult.users
+                    isRefreshing = false
                 }
             }
             .catch { error = true }
@@ -89,6 +94,11 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun onTryAgainClick() = getUsers()
+
+    fun onRefresh() {
+        isRefreshing = true
+        getUsers()
+    }
 
     private fun applyFilter() = viewModelScope.launch {
         selectedTabIndex.collect { index ->
