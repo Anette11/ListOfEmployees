@@ -7,7 +7,7 @@ import java.util.*
 
 fun String.toDate(): Date? =
     try {
-        val simpleDateFormat = SimpleDateFormat("yyyy-MMM-dd", Locale.getDefault())
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         simpleDateFormat.parse(this)
     } catch (e: ParseException) {
         if (BuildConfig.DEBUG) e.printStackTrace()
