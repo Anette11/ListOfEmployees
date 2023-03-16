@@ -20,6 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.listofemployees.R
 import com.example.listofemployees.ui.components.*
 import com.example.listofemployees.util.SortType
+import com.example.listofemployees.util.toListScreenItems
+import com.example.listofemployees.util.toSimpleListScreenItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -96,7 +98,8 @@ fun MainScreen() {
                                 return@Tabs
                             }
                             ListScreen(
-                                users = viewModel.usersFiltered.value,
+                                users = if (viewModel.sortType == SortType.BY_BIRTHDAY) viewModel.usersFiltered.value.toListScreenItems()
+                                else viewModel.usersFiltered.value.toSimpleListScreenItems(),
                                 showBirthday = viewModel.sortType == SortType.BY_BIRTHDAY
                             )
                         }
