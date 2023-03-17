@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.listofemployees.R
+import com.example.listofemployees.util.toPhone
 
 @Composable
 fun PhoneItem(
@@ -38,7 +39,7 @@ fun PhoneItem(
     Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._12dp)))
     Text(
         modifier = Modifier.weight(1f),
-        text = phone,
+        text = phone.toPhone(),
         color = colorResource(id = R.color.black_dark),
         fontFamily = FontFamily(Font(R.font.inter_medium)),
         fontSize = dimensionResource(id = R.dimen._16sp).value.sp
