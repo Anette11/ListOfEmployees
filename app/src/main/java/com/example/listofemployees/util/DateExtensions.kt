@@ -35,3 +35,15 @@ fun String.toCurrentYear(): Date? {
     calendarBirthday.set(Calendar.YEAR, calendarToday.get(Calendar.YEAR))
     return calendarBirthday.time
 }
+
+fun String.toBirthday(): String {
+    val defaultValue = ""
+    return try {
+        val date = this.toDate() ?: return defaultValue
+        val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        simpleDateFormat.format(date)
+    } catch (e: Exception) {
+        if (BuildConfig.DEBUG) e.printStackTrace()
+        defaultValue
+    }
+}
