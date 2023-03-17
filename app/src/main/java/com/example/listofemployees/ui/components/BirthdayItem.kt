@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.listofemployees.R
 
 @Composable
-fun DateItem(
+fun BirthdayItem(
     birthday: String,
     age: String
 ) = Row(
@@ -55,8 +55,8 @@ fun DateItem(
 
 @Composable
 @Preview
-fun DateItemPreview() =
-    DateItem(
+fun BirthdayItemPreview() =
+    BirthdayItem(
         birthday = stringResource(id = R.string.birthday_test),
         age = stringResource(id = R.string.age_test)
     )
