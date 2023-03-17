@@ -3,7 +3,6 @@ package com.example.listofemployees.util
 sealed class DetailsScreenItem {
 
     data class Header(
-        val onBackClick: () -> Unit,
         val image: Any?,
         val firstName: String,
         val lastName: String,

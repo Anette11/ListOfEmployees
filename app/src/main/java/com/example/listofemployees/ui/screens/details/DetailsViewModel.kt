@@ -24,7 +24,6 @@ class DetailsViewModel @Inject constructor(
     ) {
         screenItems = listOf(
             DetailsScreenItem.Header(
-                onBackClick = {},
                 image = user?.avatarUrl ?: R.drawable.ic_placeholder,
                 firstName = user?.firstName ?: resourcesProvider.getString(R.string.empty),
                 lastName = user?.lastName ?: resourcesProvider.getString(R.string.empty),

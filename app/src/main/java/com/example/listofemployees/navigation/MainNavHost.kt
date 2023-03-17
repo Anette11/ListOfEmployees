@@ -47,7 +47,10 @@ fun MainNavHost(
             else -> navBackStackEntry.arguments?.getParcelable(Screen.Details.getUserArgs())
         }
         user?.let {
-            DetailsScreen(user = user)
+            DetailsScreen(
+                user = user,
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
     }
 }

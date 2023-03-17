@@ -20,7 +20,8 @@ import com.example.listofemployees.util.DetailsScreenItem
 @Composable
 fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
-    user: Item
+    user: Item,
+    onNavigateBack: () -> Unit
 ) {
     LaunchedEffect(key1 = user) {
         viewModel.fillScreenItems(user = user)
@@ -34,7 +35,7 @@ fun DetailsScreen(
         items(viewModel.screenItems) { screenItem ->
             when (screenItem) {
                 is DetailsScreenItem.Header -> HeaderItem(
-                    onBackClick = screenItem.onBackClick,
+                    onBackClick = onNavigateBack,
                     image = screenItem.image,
                     firstName = screenItem.firstName,
                     lastName = screenItem.lastName,
