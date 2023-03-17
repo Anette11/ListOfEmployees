@@ -28,8 +28,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen() {
-    val viewModel: MainScreenViewModel = hiltViewModel()
+fun MainScreen(
+    viewModel: MainScreenViewModel = hiltViewModel(),
+    onNavigateToDetails: () -> Unit
+) {
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullRefreshState(

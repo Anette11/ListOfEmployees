@@ -3,7 +3,7 @@ package com.example.listofemployees
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.listofemployees.ui.screens.main.MainScreen
+import com.example.listofemployees.navigation.MainNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
     ) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MainNavHost()
         }
     }
 }
