@@ -29,4 +29,6 @@
     <string name="age_test">24 года</string>
     <string name="phone_test">+7 (999) 900 90 90</string>
     <string name="activity_not_found_text">No Activity found to handle intent</string>
+    <string name="nobody_was_found">Мы никого не нашли</string>
+    <string name="try_correct_request">Попробуй скорректировать запрос</string>
 </resources>
