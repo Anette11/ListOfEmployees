@@ -9,5 +9,7 @@ sealed class Screen(
 
     object Details : Screen(
         route = "details_route"
-    )
+    ) {
+        fun getUserArgs() = "userArgs"
+    }
 }

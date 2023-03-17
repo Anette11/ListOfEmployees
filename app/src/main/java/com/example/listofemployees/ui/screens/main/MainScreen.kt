@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.domain.data.remote.Item
 import com.example.listofemployees.R
 import com.example.listofemployees.ui.components.*
 import com.example.listofemployees.util.SortType
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     viewModel: MainScreenViewModel = hiltViewModel(),
-    onNavigateToDetails: () -> Unit
+    onNavigateToDetails: (Item) -> Unit
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
@@ -102,7 +103,8 @@ fun MainScreen(
                             ListScreen(
                                 users = if (viewModel.sortType == SortType.BY_BIRTHDAY) viewModel.usersFiltered.value.toListScreenItems()
                                 else viewModel.usersFiltered.value.toSimpleListScreenItems(),
-                                showBirthday = viewModel.sortType == SortType.BY_BIRTHDAY
+                                showBirthday = viewModel.sortType == SortType.BY_BIRTHDAY,
+                                onUserClick = onNavigateToDetails
                             )
                         }
                     )

@@ -1,6 +1,7 @@
 package com.example.listofemployees.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
@@ -12,7 +13,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -23,29 +23,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.example.domain.data.remote.Item
 import com.example.listofemployees.R
 import com.example.listofemployees.util.toStringDate
 
 @Composable
 fun OneItem(
-    image: Any?,
-    name: String,
-    userTag: String,
-    position: String,
-    birthday: String,
-    showBirthday: Boolean
+    showBirthday: Boolean,
+    user: Item,
+    onUserClick: (Item) -> Unit
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
         .padding(
             horizontal = dimensionResource(id = R.dimen._16dp),
             vertical = dimensionResource(id = R.dimen._6dp)
-        ),
+        )
+        .clickable { onUserClick(user) },
     verticalAlignment = Alignment.CenterVertically
 ) {
     val painter = rememberAsyncImagePainter(
         ImageRequest.Builder(LocalContext.current)
-            .data(image)
+            .data(user.avatarUrl)
             .crossfade(true)
             .placeholder(R.drawable.ic_placeholder)
             .error(R.drawable.ic_placeholder)
@@ -73,7 +72,7 @@ fun OneItem(
                         fontFamily = FontFamily(Font(R.font.inter_medium))
                     )
                 ) {
-                    append(name)
+                    append("${user.firstName} ${user.lastName}")
                 }
                 append(stringResource(id = R.string.space))
                 withStyle(
@@ -83,12 +82,12 @@ fun OneItem(
                         fontFamily = FontFamily(Font(R.font.inter_medium))
                     )
                 ) {
-                    append(userTag.lowercase())
+                    append(user.userTag.lowercase())
                 }
             }
         )
         Text(
-            text = position,
+            text = user.position,
             color = colorResource(id = R.color.gray_darkest),
             fontSize = dimensionResource(id = R.dimen._13sp).value.sp,
             fontFamily = FontFamily(Font(R.font.inter_regular))
@@ -98,7 +97,7 @@ fun OneItem(
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._16dp)))
         Column(verticalArrangement = Arrangement.Center) {
             Text(
-                text = birthday.toStringDate(),
+                text = user.birthday.toStringDate(),
                 color = colorResource(id = R.color.gray_darkest),
                 fontSize = dimensionResource(id = R.dimen._15sp).value.sp,
                 fontFamily = FontFamily(Font(R.font.inter_regular))
@@ -111,10 +110,17 @@ fun OneItem(
 @Preview
 fun OneItemPreview() =
     OneItem(
-        image = painterResource(id = R.drawable.ic_placeholder),
-        name = stringResource(id = R.string.name),
-        userTag = stringResource(id = R.string.userTag),
-        position = stringResource(id = R.string.position),
-        birthday = stringResource(id = R.string.birthday_example),
-        showBirthday = true
+        showBirthday = true,
+        onUserClick = {},
+        user = Item(
+            avatarUrl = stringResource(id = R.string.name),
+            birthday = stringResource(id = R.string.name),
+            department = stringResource(id = R.string.name),
+            firstName = stringResource(id = R.string.name),
+            id = stringResource(id = R.string.name),
+            lastName = stringResource(id = R.string.name),
+            phone = stringResource(id = R.string.name),
+            position = stringResource(id = R.string.name),
+            userTag = stringResource(id = R.string.name)
+        )
     )

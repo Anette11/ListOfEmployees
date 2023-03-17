@@ -5,24 +5,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.domain.data.remote.Item
 import com.example.listofemployees.util.ScreenItem
 
 @Composable
 fun ListScreen(
     users: List<ScreenItem>,
-    showBirthday: Boolean
+    showBirthday: Boolean,
+    onUserClick: (Item) -> Unit
 ) = LazyColumn(
     modifier = Modifier.fillMaxSize()
 ) {
     items(count = users.size) { index ->
         when (val screenItem = users[index]) {
             is ScreenItem.User -> OneItem(
-                image = screenItem.user.avatarUrl,
-                name = "${screenItem.user.firstName} ${screenItem.user.lastName}",
-                userTag = screenItem.user.userTag,
-                position = screenItem.user.position,
-                birthday = screenItem.user.birthday,
-                showBirthday = showBirthday
+                showBirthday = showBirthday,
+                user = screenItem.user,
+                onUserClick = onUserClick
             )
             is ScreenItem.Year -> ItemYear(year = screenItem.year)
         }
@@ -34,5 +33,6 @@ fun ListScreen(
 fun ListScreenPreview() =
     ListScreen(
         users = emptyList(),
-        showBirthday = true
+        showBirthday = true,
+        onUserClick = {}
     )
