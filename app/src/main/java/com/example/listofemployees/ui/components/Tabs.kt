@@ -42,10 +42,9 @@ fun Tabs(
         },
         divider = {
             Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(height = dimensionResource(id = R.dimen._0_33dp)),
-                color = colorResource(id = R.color.gray_dark)
+                modifier = Modifier.fillMaxWidth(),
+                color = colorResource(id = R.color.gray_dark),
+                thickness = dimensionResource(id = R.dimen._0_33dp)
             )
         }
     ) {
