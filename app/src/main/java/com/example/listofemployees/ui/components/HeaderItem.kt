@@ -105,7 +105,7 @@ fun HeaderItem(
                         fontFamily = FontFamily(Font(R.font.inter_regular))
                     )
                 ) {
-                    append(userTag)
+                    append(userTag.lowercase())
                 }
             }
         )
