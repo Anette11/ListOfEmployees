@@ -21,7 +21,8 @@ import com.example.listofemployees.util.DetailsScreenItem
 fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
     user: Item,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onPhoneClick: (String) -> Unit
 ) {
     LaunchedEffect(key1 = user) {
         viewModel.fillScreenItems(user = user)
@@ -48,7 +49,8 @@ fun DetailsScreen(
                 )
                 DetailsScreenItem.DividerItem -> DividerItem()
                 is DetailsScreenItem.Phone -> PhoneItem(
-                    phone = screenItem.phone
+                    phone = screenItem.phone,
+                    onPhoneClick = onPhoneClick
                 )
             }
         }

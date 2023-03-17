@@ -1,6 +1,7 @@
 package com.example.listofemployees.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -20,7 +21,8 @@ import com.example.listofemployees.util.toPhone
 
 @Composable
 fun PhoneItem(
-    phone: String
+    phone: String,
+    onPhoneClick: (String) -> Unit
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
@@ -28,7 +30,8 @@ fun PhoneItem(
         .padding(
             horizontal = dimensionResource(id = R.dimen._16dp),
             vertical = dimensionResource(id = R.dimen._26dp)
-        ),
+        )
+        .clickable { onPhoneClick(phone.toPhone()) },
     verticalAlignment = Alignment.CenterVertically
 ) {
     Icon(
@@ -50,5 +53,6 @@ fun PhoneItem(
 @Preview
 fun PhoneItemPreview() =
     PhoneItem(
-        phone = stringResource(id = R.string.phone_test)
+        phone = stringResource(id = R.string.phone_test),
+        onPhoneClick = {}
     )

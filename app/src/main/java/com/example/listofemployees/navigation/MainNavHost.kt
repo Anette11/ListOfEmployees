@@ -14,7 +14,8 @@ import com.example.listofemployees.ui.screens.main.MainScreen
 @Composable
 fun MainNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.Main.route
+    startDestination: String = Screen.Main.route,
+    onPhoneClick: (String) -> Unit
 ) = NavHost(
     navController = navController,
     startDestination = startDestination
@@ -49,7 +50,8 @@ fun MainNavHost(
         user?.let {
             DetailsScreen(
                 user = user,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onPhoneClick = onPhoneClick
             )
         }
     }

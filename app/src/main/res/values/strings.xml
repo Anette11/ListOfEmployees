@@ -28,4 +28,5 @@
     <string name="birthday_test">5 июня 1996</string>
     <string name="age_test">24 года</string>
     <string name="phone_test">+7 (999) 900 90 90</string>
+    <string name="activity_not_found_text">No Activity found to handle intent</string>
 </resources>
