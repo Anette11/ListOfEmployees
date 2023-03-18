@@ -88,6 +88,10 @@ class MainScreenViewModel @Inject constructor(
         value = newValue
     }
 
+    fun onClearClick() {
+        value = resourcesProvider.getString(R.string.empty)
+    }
+
     fun onSortTypeSelected(sortType: SortType) {
         this.sortType = sortType
     }

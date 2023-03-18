@@ -88,6 +88,7 @@ fun MainScreen(
                         value = viewModel.value,
                         onValueChange = viewModel::onValueChange,
                         onMenuClick = { scope.launch { modalBottomSheetState.show() } },
+                        onClearClick = viewModel::onClearClick,
                         isMenuSelected = viewModel.sortType != SortType.ALPHABETICALLY
                     )
                     Tabs(
