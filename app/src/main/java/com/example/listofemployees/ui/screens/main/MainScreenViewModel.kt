@@ -150,14 +150,20 @@ class MainScreenViewModel @Inject constructor(
         )
     }
 
-    fun onTryAgainClick() = getUsers()
-
-    fun onRefresh() {
-        isRefreshing = true
-        snackBarInfo = SnackBarInfo(
+    private fun createAwaitSnackBarInfo(): SnackBarInfo =
+        SnackBarInfo(
             color = R.color.purple,
             text = resourcesProvider.getString(R.string.refreshing_info)
         )
+
+    fun onTryAgainClick() {
+        snackBarInfo = createAwaitSnackBarInfo()
+        getUsers()
+    }
+
+    fun onRefresh() {
+        isRefreshing = true
+        snackBarInfo = createAwaitSnackBarInfo()
         getUsers()
     }
 
