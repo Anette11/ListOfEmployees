@@ -95,6 +95,12 @@ fun MainScreen(
                         tabNames = viewModel.tabNames,
                         onTabClick = viewModel::onTabClick,
                         content = {
+                            if (viewModel.usersFiltered.value.isEmpty() &&
+                                viewModel.value.isNotBlank()
+                            ) {
+                                NothingFound()
+                                return@Tabs
+                            }
                             if (viewModel.isLoading && !viewModel.isRefreshing) {
                                 ListShimmer()
                                 return@Tabs
