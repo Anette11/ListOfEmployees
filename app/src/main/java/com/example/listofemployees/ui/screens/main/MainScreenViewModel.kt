@@ -102,10 +102,6 @@ class MainScreenViewModel @Inject constructor(
         selectedTabIndex = tab
     }
 
-    fun onSearchClick() {
-
-    }
-
     private fun getUsers() = viewModelScope.launch(dispatchersProvider.main) {
         getUsersUseCase.invoke()
             .flowOn(dispatchersProvider.io)

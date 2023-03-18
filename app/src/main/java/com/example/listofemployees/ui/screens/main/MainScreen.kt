@@ -87,7 +87,6 @@ fun MainScreen(
                     SearchField(
                         value = viewModel.value,
                         onValueChange = viewModel::onValueChange,
-                        onSearchClick = viewModel::onSearchClick,
                         onMenuClick = { scope.launch { modalBottomSheetState.show() } },
                         isMenuSelected = viewModel.sortType != SortType.ALPHABETICALLY
                     )

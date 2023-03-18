@@ -21,7 +21,6 @@ import com.example.listofemployees.R
 fun SearchField(
     value: String,
     onValueChange: (String) -> Unit,
-    onSearchClick: () -> Unit,
     onMenuClick: () -> Unit,
     isMenuSelected: Boolean
 ) = Row(
@@ -49,7 +48,8 @@ fun SearchField(
         },
         leadingIcon = {
             IconButton(
-                onClick = onSearchClick
+                onClick = {},
+                enabled = false
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_search),
@@ -92,7 +92,6 @@ fun SearchFieldPreview() =
     SearchField(
         value = stringResource(id = R.string.empty),
         onValueChange = {},
-        onSearchClick = {},
         onMenuClick = {},
         isMenuSelected = true
     )
