@@ -75,9 +75,9 @@ class MainScreenViewModel @Inject constructor(
                 }
                 .apply {
                     val newUsersFiltered = (this.value as MutableList<Item>).filter { item ->
-                        item.firstName.contains(this@MainScreenViewModel.value, true) ||
-                                item.lastName.contains(this@MainScreenViewModel.value, true) ||
-                                item.userTag.contains(this@MainScreenViewModel.value, true)
+                        item.firstName.startsWith(this@MainScreenViewModel.value, true) ||
+                                item.lastName.startsWith(this@MainScreenViewModel.value, true) ||
+                                item.userTag.startsWith(this@MainScreenViewModel.value, true)
                     }
                     this.value = newUsersFiltered
                 }
