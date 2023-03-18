@@ -44,8 +44,7 @@ fun DetailsScreen(
                     position = screenItem.position
                 )
                 is DetailsScreenItem.Birthday -> BirthdayItem(
-                    birthday = screenItem.birthday,
-                    age = screenItem.age
+                    birthday = screenItem.birthday
                 )
                 DetailsScreenItem.DividerItem -> DividerItem()
                 is DetailsScreenItem.Phone -> PhoneItem(

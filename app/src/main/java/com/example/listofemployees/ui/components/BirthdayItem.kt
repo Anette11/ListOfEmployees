@@ -16,12 +16,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.listofemployees.R
+import com.example.listofemployees.util.toAge
 import com.example.listofemployees.util.toBirthday
 
 @Composable
 fun BirthdayItem(
-    birthday: String,
-    age: String
+    birthday: String
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
@@ -47,7 +47,7 @@ fun BirthdayItem(
     )
     Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen._12dp)))
     Text(
-        text = age,
+        text = birthday.toAge(),
         color = colorResource(id = R.color.gray_darker),
         fontFamily = FontFamily(Font(R.font.inter_medium)),
         fontSize = dimensionResource(id = R.dimen._16sp).value.sp
@@ -58,6 +58,5 @@ fun BirthdayItem(
 @Preview
 fun BirthdayItemPreview() =
     BirthdayItem(
-        birthday = stringResource(id = R.string.birthday_test),
-        age = stringResource(id = R.string.age_test)
+        birthday = stringResource(id = R.string.birthday_test)
     )
